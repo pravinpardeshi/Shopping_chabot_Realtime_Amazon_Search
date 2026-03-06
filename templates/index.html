@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Shopping Agent</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🛍️</span>
+                <span class="logo-text">ShopAgent</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-label">Capabilities</div>
+                <div id="navChat" class="nav-item active">💬 Chat Search</div>
+                <div id="navShoes" class="nav-item">👟 Shoes</div>
+                <div id="navBooks" class="nav-item">📚 Books</div>
+            </nav>
+            <div class="sidebar-hint">
+                <div class="hint-title">Try asking:</div>
+                <p>"Show me Brooks Glycerin size 9.5 2E"</p>
+                <p>"Best running shoes under $150"</p>
+                <p>"Find Atomic Habits book"</p>
+                <p>"Show me Hoka running shoes"</p>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <div class="agent-status">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Agent Ready</span>
+                </div>
+                <div class="header-title">AI Shopping Agent</div>
+                <button class="clear-btn" onclick="clearChat()">New Chat</button>
+            </header>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot welcome-msg">
+                    <div class="bot-avatar">🤖</div>
+                    <div class="msg-content">
+                        <p>Hi! I'm your <strong>AI Shopping Agent</strong> powered by Llama 3.1.</p>
+                        <p>I can autonomously search our catalog of <strong>shoes</strong> and <strong>books</strong>,
+                            compare prices across vendors, and find you the best deal.</p>
+                        <p>What are you looking for today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Panel -->
+            <div id="checkoutPanel" class="checkout-panel hidden">
+                <div class="checkout-inner">
+                    <div class="checkout-header">
+                        <span>🔒 Secure Checkout — WorldPay</span>
+                        <button class="close-btn" onclick="cancelCheckout()">✕</button>
+                    </div>
+                    <div id="checkoutProductSummary"></div>
+
+                    <!-- Shipping Address -->
+                    <div class="checkout-section-label">📦 Shipping Address</div>
+                    <input type="text" id="shipName" placeholder="Full name" autocomplete="name">
+                    <input type="text" id="shipStreet" placeholder="Street address" autocomplete="address-line1">
+                    <div class="address-row">
+                        <input type="text" id="shipCity" placeholder="City" autocomplete="address-level2">
+                        <input type="text" id="shipState" placeholder="State" maxlength="2"
+                            autocomplete="address-level1">
+                        <input type="text" id="shipZip" placeholder="ZIP" maxlength="10" autocomplete="postal-code">
+                    </div>
+                    <input type="text" id="shipCountry" placeholder="Country" value="United States"
+                        autocomplete="country-name">
+
+                    <!-- Payment Details -->
+                    <div class="checkout-section-label">💳 Payment Details</div>
+                    <div class="card-types">
+                        <input type="radio" name="cardType" value="Visa" id="visa" class="card-radio" checked>
+                        <label for="visa" class="card-label">
+                            <span class="card-icon">💳</span> Visa
+                        </label>
+                        <input type="radio" name="cardType" value="Mastercard" id="mastercard" class="card-radio">
+                        <label for="mastercard" class="card-label">
+                            <span class="card-icon">💳</span> Mastercard
+                        </label>
+                    </div>
+                    <input type="text" id="cardNumber" placeholder="Card number (16 digits)" maxlength="19"
+                        autocomplete="cc-number">
+                    <div class="address-row">
+                        <input type="text" id="cardExpiry" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp"
+                            style="flex:1">
+                        <input type="text" id="cardCvc" placeholder="CVC" maxlength="3" autocomplete="cc-csc"
+                            style="flex:0.6">
+                    </div>
+                    <button class="pay-btn" onclick="processCheckout()">Confirm & Pay</button>
+                    <button class="cancel-pay-btn" onclick="cancelCheckout()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area" id="inputArea">
+                <div class="input-wrapper">
+                    <input type="text" id="userInput" placeholder="Ask me to find shoes, books, or anything…"
+                        onkeypress="handleKeyPress(event)">
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                        <span>Send</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
